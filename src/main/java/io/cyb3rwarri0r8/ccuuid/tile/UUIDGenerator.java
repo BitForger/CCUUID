@@ -56,7 +56,7 @@ public class UUIDGenerator extends TileEntity implements IPeripheral {
     @Override
     public String[] getMethodNames() {
         String[] string = new String[1];
-        string[1] = "generateUUID";
+        string[0] = "generateUUID";
         return string;
     }
 
