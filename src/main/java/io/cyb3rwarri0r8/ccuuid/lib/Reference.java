@@ -20,4 +20,6 @@ package io.cyb3rwarri0r8.ccuuid.lib;
 public class Reference {
     public static final String MODID = "ccuuid";
     public static final String VERSION = "0.1a";
+    public static final String COMMON_PROXY = "io.cyb3rwarri0r8.ccuuid.lib.proxy.CommonProxy";
+    public static final String CLIENT_PROXY = "io.cyb3rwarri0r8.ccuuid.lib.proxy.ClientProxy";
 }

@@ -1,5 +1,6 @@
 package io.cyb3rwarri0r8.ccuuid.blocks;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 
 /**
@@ -26,6 +27,6 @@ public class ModBlocks {
     public static void init()
     {
         ccuuidGenerator = new BlockCCUUIDGenerator();
-
+        GameRegistry.registerBlock(ccuuidGenerator, "uuidGenerator");
     }
 }

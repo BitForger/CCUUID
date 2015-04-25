@@ -55,9 +55,7 @@ public class UUIDGenerator extends TileEntity implements IPeripheral {
      */
     @Override
     public String[] getMethodNames() {
-        String[] string = new String[1];
-        string[0] = "generateUUID";
-        return string;
+        return new String[]{"generateUUID"};
     }
 
     /**
@@ -95,7 +93,7 @@ public class UUIDGenerator extends TileEntity implements IPeripheral {
         switch (method) {
             case 0:
                 UUID uuid = UUID.randomUUID();
-                return new Object[]{uuid};
+                return new String[] {String.valueOf(uuid)};
             default:
                 return null;
 

@@ -37,62 +37,6 @@ dependencies {
 //	compile "codechicken:CodeChickenCore:1.7.10-1.0.4.29:dev"
 }
 
-processResources
-{
-    Matcher matcherVersion
-
-    def configFile = file("config.xml")
-    def configText = configFile.getText()
-
-    def patternDev = Pattern.compile("<isDev>(\\w+)</isDev>")
-    def matcherDev = patternDev.matcher(configText)
-    matcherDev.find()
-    def isDev = Boolean.parseBoolean(matcherDev.group(1))
-
-    if(isDev) {
-        def pattern = Pattern.compile("<version>(\\d+)\\.(\\d+)\\.(\\d+)\\-(\\w+).(\\d+)</version>")
-        matcherVersion = pattern.matcher(configText)
-        matcherVersion.find()
-
-        def major = Integer.parseInt(matcherVersion.group(1))
-        def minor = Integer.parseInt(matcherVersion.group(2))
-        def patch = Integer.parseInt(matcherVersion.group(3))
-        def dev = matcherVersion.group(4)
-        def devVersion = Integer.parseInt(matcherVersion.group(5))
-
-        project.version = major + "." + minor + "." + patch + "-" + dev + "." + devVersion
-    }
-    else {
-        def pattern = Pattern.compile("<version>(\\d+)\\.(\\d+)\\.(\\d+)</version>")
-        matcherVersion = pattern.matcher(configText)
-        matcherVersion.find()
-
-        def major = Integer.parseInt(matcherVersion.group(1))
-        def minor = Integer.parseInt(matcherVersion.group(2))
-        def patch = Integer.parseInt(matcherVersion.group(3))
-
-        project.version = major + "." + minor + "." + patch
-    }
-
-
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
-}
-
 
 /*task incrementVersionName << {
     println(":incrementVersionName - Incrementing Version Name...")
@@ -321,6 +265,7 @@ task setDevVersion << {
     matcherDev.find()
     def configIsDev = matcherDev.replaceAll("<isDev>true</isDev>")
     configFile.write(configIsDev)
+
 }
 
 task getModData << {
@@ -352,13 +297,66 @@ task getModData << {
     project.group = configGroup
 }
 
+processResources
+        {
+            Matcher matcherVersion
+
+            def configFile = file("config.xml")
+            def configText = configFile.getText()
+
+            def patternDev = Pattern.compile("<isDev>(\\w+)</isDev>")
+            def matcherDev = patternDev.matcher(configText)
+            matcherDev.find()
+            def isDev = Boolean.parseBoolean(matcherDev.group(1))
+
+            if(isDev) {
+                def pattern = Pattern.compile("<version>(\\d+)\\.(\\d+)\\.(\\d+)\\-(\\w+).(\\d+)</version>")
+                matcherVersion = pattern.matcher(configText)
+                matcherVersion.find()
+
+                def major = Integer.parseInt(matcherVersion.group(1))
+                def minor = Integer.parseInt(matcherVersion.group(2))
+                def patch = Integer.parseInt(matcherVersion.group(3))
+                def dev = matcherVersion.group(4)
+                def devVersion = Integer.parseInt(matcherVersion.group(5))
+
+                project.version = major + "." + minor + "." + patch + "-" + dev + "." + devVersion
+            }
+            else {
+                def pattern = Pattern.compile("<version>(\\d+)\\.(\\d+)\\.(\\d+)</version>")
+                matcherVersion = pattern.matcher(configText)
+                matcherVersion.find()
+
+                def major = Integer.parseInt(matcherVersion.group(1))
+                def minor = Integer.parseInt(matcherVersion.group(2))
+                def patch = Integer.parseInt(matcherVersion.group(3))
+
+                project.version = major + "." + minor + "." + patch
+            }
+
+
+            // this will ensure that this task is redone when the versions change.
+            inputs.property "version", project.version
+            inputs.property "mcversion", project.minecraft.version
+
+            // replace stuff in mcmod.info, nothing else
+            from(sourceSets.main.resources.srcDirs) {
+                include 'mcmod.info'
+
+                // replace version and mcversion
+                expand 'version':project.version, 'mcversion':project.minecraft.version
+            }
+
+            // copy everything else, thats not the mcmod.info
+            from(sourceSets.main.resources.srcDirs) {
+                exclude 'mcmod.info'
+            }
+        }
 
 
 build.mustRunAfter getModData
 build.dependsOn getModData
 
-build.mustRunAfter setDevVersion
-build.dependsOn setDevVersion
 
 sourceSets {
     main { output.resourcesDir = output.classesDir }

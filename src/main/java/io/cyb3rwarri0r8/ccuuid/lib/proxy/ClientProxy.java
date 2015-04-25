@@ -1,7 +1,11 @@
 package io.cyb3rwarri0r8.ccuuid.lib.proxy;
 
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import io.cyb3rwarri0r8.ccuuid.render.RenderUUIDGenerator;
 import io.cyb3rwarri0r8.ccuuid.tile.UUIDGenerator;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 
 /**
  * CommuMod - A Minecraft Modification
@@ -20,14 +24,14 @@ import io.cyb3rwarri0r8.ccuuid.tile.UUIDGenerator;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-public abstract class CommonProxy {
+public class ClientProxy extends CommonProxy{
 
+    TileEntitySpecialRenderer render1 = new RenderUUIDGenerator();
+
+
+    @Override
     public void registerRenderers() {
-
-    }
-
-    public void registerTileEntities() {
-        GameRegistry.registerTileEntity(UUIDGenerator.class, "UUID Generator");
+        ClientRegistry.registerTileEntity(UUIDGenerator.class,"UUIDGenerator",render1);
     }
 
 }
