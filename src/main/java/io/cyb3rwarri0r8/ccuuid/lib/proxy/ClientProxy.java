@@ -1,8 +1,7 @@
 package io.cyb3rwarri0r8.ccuuid.lib.proxy;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
+import io.cyb3rwarri0r8.ccuuid.client.ModelUUIDGenerator;
 import io.cyb3rwarri0r8.ccuuid.render.RenderUUIDGenerator;
 import io.cyb3rwarri0r8.ccuuid.tile.UUIDGenerator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -26,12 +25,12 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
  */
 public class ClientProxy extends CommonProxy{
 
-    TileEntitySpecialRenderer render1 = new RenderUUIDGenerator();
+    public ModelUUIDGenerator model;
 
 
     @Override
     public void registerRenderers() {
-        ClientRegistry.registerTileEntity(UUIDGenerator.class,"UUIDGenerator",render1);
+        ClientRegistry.bindTileEntitySpecialRenderer(UUIDGenerator.class, new RenderUUIDGenerator(model));
     }
 
 }

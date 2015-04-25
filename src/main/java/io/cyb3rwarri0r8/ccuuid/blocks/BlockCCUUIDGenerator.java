@@ -5,6 +5,7 @@ import io.cyb3rwarri0r8.ccuuid.tile.UUIDGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -27,6 +28,8 @@ import net.minecraft.world.World;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 public class BlockCCUUIDGenerator extends BlockContainer {
+
+
 
     public BlockCCUUIDGenerator() {
         super(Material.rock);
@@ -56,4 +59,8 @@ public class BlockCCUUIDGenerator extends BlockContainer {
     public boolean renderAsNormalBlock(){
         return false;
     }
+
+//    public void registerIcons(IIconRegister icon) {
+//        this.blockIcon = icon.registerIcon(null);
+//    }
 }

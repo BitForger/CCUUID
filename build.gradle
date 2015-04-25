@@ -22,13 +22,18 @@ buildscript {
 
 apply plugin: 'forge'
 
-version=""
-group= "io.cyb3rwarri0r8.ccuuid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+
+version
+group= "io.cyb3rwarri0r8."+mod_id // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "ccuuid"
 
 minecraft {
-    version = "1.7.10-10.13.2.1291"
-    assetDir = "eclipse/assets"
+    version = mc_version +"-"+ forge_version
+    runDir="eclipse"
+
+    replace "@ID@", mod_id
+    replace "@NAME@", mod_name
+    replace "@VERSION@", project.version
 }
 
 dependencies {
@@ -37,24 +42,6 @@ dependencies {
 //	compile "codechicken:CodeChickenCore:1.7.10-1.0.4.29:dev"
 }
 
-
-/*task incrementVersionName << {
-    println(":incrementVersionName - Incrementing Version Name...")
-    def manifestFile = file("config.xml")
-    def patternVersionNumber = Pattern.compile("versionName=\"(\\d+)\\.(\\d+)\\.(\\d+)\"")
-    def manifestText = manifestFile.getText()
-    def matcherVersionNumber = patternVersionNumber.matcher(manifestText)
-    matcherVersionNumber.find()
-    def majorVersion = Integer.parseInt(matcherVersionNumber.group(1))
-    def minorVersion = Integer.parseInt(matcherVersionNumber.group(2))
-    def pointVersion = Integer.parseInt(matcherVersionNumber.group(3))
-    def mVersionName = majorVersion + "." + minorVersion + "." + pointVersion
-    def mNextVersionName = majorVersion + "." + minorVersion + "." + (pointVersion + 1)
-    def manifestContent = matcherVersionNumber.replaceAll("versionName=\"" + mNextVersionName + "\"")
-    println(":incrementVersionName - current versionName=" + mVersionName);
-    println(":incrementVersionName - new versionName=" + mNextVersionName);
-    manifestFile.write(manifestContent)
-}*/
 
 task incrementPatch << {
     String oldVersion
@@ -240,6 +227,7 @@ task setDevVersion << {
 
         oldVersion = major + "." + minor + "." + patch + "-" + dev + "." + devVersion
         newVersion = major + "." + minor + "." + patch + "-" + dev + "." + (devVersion + 1)
+
     }
     else {
         println(":setDevVersion - Setting to Dev Version")
@@ -259,12 +247,14 @@ task setDevVersion << {
     println(":incrementPatch - Current Version: " + oldVersion)
     println(":incrementPatch - New Version:     " + newVersion)
     project.version = newVersion
+    mod_version = project.version
 
     def configVersion = matcherVersion.replaceAll("<version>"+ newVersion +"</version>")
     matcherDev = patternDev.matcher(configVersion)
     matcherDev.find()
     def configIsDev = matcherDev.replaceAll("<isDev>true</isDev>")
     configFile.write(configIsDev)
+    mod_version = configVersion
 
 }
 
@@ -344,18 +334,19 @@ processResources
                 include 'mcmod.info'
 
                 // replace version and mcversion
-                expand 'version':project.version, 'mcversion':project.minecraft.version
+
+                expand 'id':mod_id, 'name':mod_name, 'description':mod_desc, 'url':mod_url, 'version':project.version, 'mcversion':mc_version
             }
 
             // copy everything else, thats not the mcmod.info
             from(sourceSets.main.resources.srcDirs) {
                 exclude 'mcmod.info'
+
+
             }
         }
 
 
-build.mustRunAfter getModData
-build.dependsOn getModData
 
 
 sourceSets {
