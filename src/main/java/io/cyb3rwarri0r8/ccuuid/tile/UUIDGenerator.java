@@ -5,7 +5,7 @@ import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.peripheral.IComputerAccess;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
+
 import java.util.UUID;
 
 /**
@@ -28,7 +28,9 @@ import java.util.UUID;
 
 public class UUIDGenerator extends TileEntity implements IPeripheral {
 
-    public UUIDGenerator(World world)
+    public String customName;
+
+    public UUIDGenerator()
     {
         super();
     }
@@ -147,4 +149,13 @@ public class UUIDGenerator extends TileEntity implements IPeripheral {
     public boolean equals(IPeripheral other) {
         return false;
     }
+
+    public void func_145976_a(String displayName) {
+        this.customName = displayName;
+    }
+
+    public int getFacing() {
+        return (worldObj == null) ? 0 : this.getBlockMetadata();
+    }
+
 }

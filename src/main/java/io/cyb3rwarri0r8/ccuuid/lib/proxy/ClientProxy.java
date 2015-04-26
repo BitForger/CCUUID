@@ -1,10 +1,12 @@
 package io.cyb3rwarri0r8.ccuuid.lib.proxy;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import io.cyb3rwarri0r8.ccuuid.ccuuid;
 import io.cyb3rwarri0r8.ccuuid.client.ModelUUIDGenerator;
+import io.cyb3rwarri0r8.ccuuid.lib.RenderingHelper;
 import io.cyb3rwarri0r8.ccuuid.render.RenderUUIDGenerator;
 import io.cyb3rwarri0r8.ccuuid.tile.UUIDGenerator;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 
 /**
  * CommuMod - A Minecraft Modification
@@ -30,6 +32,8 @@ public class ClientProxy extends CommonProxy{
 
     @Override
     public void registerRenderers() {
+        ccuuid.renderID = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new RenderingHelper());
         ClientRegistry.bindTileEntitySpecialRenderer(UUIDGenerator.class, new RenderUUIDGenerator(model));
     }
 
