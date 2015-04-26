@@ -27,10 +27,10 @@ public class ModelUUIDGenerator extends ModelBase {
     {
         MCAVersionChecker.checkForLibraryVersion(getClass(), MCA_MIN_REQUESTED_VERSION);
 
-        textureWidth = 16;
-        textureHeight = 16;
+        textureWidth = 128;
+        textureHeight = 64;
 
-        backSide = new MCAModelRenderer(this, "backSide", 0, 0);
+        backSide = new MCAModelRenderer(this, "backSide", 86, 32);
         backSide.mirror = false;
         backSide.addBox(3.0F, 0.0F, 0.0F, 2, 16, 0);
         backSide.setInitialRotationPoint(2.0F, 8.0F, -8.0F);
@@ -38,7 +38,7 @@ public class ModelUUIDGenerator extends ModelBase {
         backSide.setTextureSize(16, 16);
         parts.put(backSide.boxName, backSide);
 
-        frontSide = new MCAModelRenderer(this, "frontSide", 0, 0);
+        frontSide = new MCAModelRenderer(this, "frontSide", 86, 0);
         frontSide.mirror = false;
         frontSide.addBox(3.0F, 0.0F, 0.0F, 2, 16, 0);
         frontSide.setInitialRotationPoint(2.0F, 8.0F, 8.0F);
@@ -48,13 +48,13 @@ public class ModelUUIDGenerator extends ModelBase {
 
         leftSide = new MCAModelRenderer(this, "leftSide", 0, 0);
         leftSide.mirror = false;
-        leftSide.addBox(3.0F, 0.0F, 0.0F, 1, 16, 16);
-        leftSide.setInitialRotationPoint(0.0F, 8.0F, -8.0F);
+        leftSide.addBox(2.7F, 0.0F, 0.0F, 1, 16, 16);
+        leftSide.setInitialRotationPoint(2.0F, 8.0F, -8.0F);
         leftSide.setInitialRotationMatrix(new Matrix4f().set(new Quaternion(0.0F, 0.0F, 0.0F, 1.0F)).transpose());
         leftSide.setTextureSize(16, 16);
         parts.put(leftSide.boxName, leftSide);
 
-        rightSide = new MCAModelRenderer(this, "rightSide", 0, 0);
+        rightSide = new MCAModelRenderer(this, "rightSide", 0, 32);
         rightSide.mirror = false;
         rightSide.addBox(3.0F, 0.0F, 0.0F, 1, 16, 16);
         rightSide.setInitialRotationPoint(4.0F, 8.0F, -8.0F);
@@ -62,18 +62,18 @@ public class ModelUUIDGenerator extends ModelBase {
         rightSide.setTextureSize(16, 16);
         parts.put(rightSide.boxName, rightSide);
 
-        topSide = new MCAModelRenderer(this, "topSide", 0, 0);
+        topSide = new MCAModelRenderer(this, "topSide", 35, 16);
         topSide.mirror = false;
-        topSide.addBox(3.0F, 0.0F, 0.0F, 2, 0, 16);
+        topSide.addBox(4.0F, 0.0F, 0.0F, 2, 0, 16);
         topSide.setInitialRotationPoint(1.0F, 8.0F, -8.0F);
         topSide.setInitialRotationMatrix(new Matrix4f().set(new Quaternion(0.0F, 0.0F, 0.0F, 1.0F)).transpose());
         topSide.setTextureSize(16, 16);
         parts.put(topSide.boxName, topSide);
 
-        bottomSide = new MCAModelRenderer(this, "bottomSide", 0, 0);
+        bottomSide = new MCAModelRenderer(this, "bottomSide", 36, 0);
         bottomSide.mirror = false;
-        bottomSide.addBox(3.0F, 0.0F, 0.0F, 2, 0, 16);
-        bottomSide.setInitialRotationPoint(1.0F, 8.0F, -8.0F);
+        bottomSide.addBox(4.0F, 0.0F, 0.0F, 2, 0, 16);
+        bottomSide.setInitialRotationPoint(1.0F, 24.0F, -8.0F);
         bottomSide.setInitialRotationMatrix(new Matrix4f().set(new Quaternion(0.0F, 0.0F, 0.0F, 1.0F)).transpose());
         bottomSide.setTextureSize(16, 16);
         parts.put(bottomSide.boxName, bottomSide);

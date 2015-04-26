@@ -1,5 +1,7 @@
 package io.cyb3rwarri0r8.ccuuid.blocks;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import dan200.computercraft.api.ComputerCraftAPI;
 import io.cyb3rwarri0r8.ccuuid.tile.UUIDGenerator;
 import net.minecraft.block.Block;
@@ -7,7 +9,10 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 /**
@@ -63,4 +68,6 @@ public class BlockCCUUIDGenerator extends BlockContainer {
 //    public void registerIcons(IIconRegister icon) {
 //        this.blockIcon = icon.registerIcon(null);
 //    }
+
+
 }
